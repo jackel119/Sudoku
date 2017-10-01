@@ -63,4 +63,20 @@ public abstract class CellGroup {
     missingValues.remove(i);
   }
 
+  public void printCells() {
+    System.out.print("Set cells in this group are: ");
+    for (Cell c : cells) {
+      try {
+        System.out.print(c.getValue() + " ");
+      } catch (Exception e) {
+
+      }
+    }
+    System.out.println("Missing values in this group are: ");
+    for (Integer s : missingValues) {
+      System.out.print(s + " ");
+    }
+    System.out.println();
+  }
+
 }

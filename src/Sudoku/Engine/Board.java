@@ -39,6 +39,7 @@ public class Board {
           boardArray[row][column] = new Cell(intArray[(row * 9) + column], row, column);
         }
       }
+      System.out.println("test");
       initializeGroups();
     }
     // Initializes the groups and adds the cells to them
@@ -48,11 +49,14 @@ public class Board {
     return boardArray[r][c];
   }
 
-  public void updateValue(int r, int c, int newValue) {
+  public boolean updateValue(int r, int c, int newValue) {
     try {
       get(r, c).set(newValue);
+      return true;
+
     } catch (IllegalArgumentException e) {
       System.out.println("Invalid move");
+      return false;
       // e.printStackTrace();
     }
   }
@@ -79,6 +83,13 @@ public class Board {
         parentSquares.get((i % 3) + (3 * (j % 3))).addCell(boardArray[i][j]);
       }
     }
+
+    /*
+    for (int i=0; i<9; i++) {
+      System.out.println("Square = " + i);
+      parentSquares.get(i).printCells();
+    }
+    */
 
     for (int i=0; i<9; i++) {
       rows.get(i).update();
