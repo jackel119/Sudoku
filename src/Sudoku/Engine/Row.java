@@ -21,4 +21,12 @@ public class Row extends CellGroup{
 
   }
 
+
+  public Row(int i) {
+    super();
+    rowNumber = i;
+
+
+  }
+
 }

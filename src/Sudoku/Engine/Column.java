@@ -20,4 +20,9 @@ public class Column extends CellGroup{
     }
 
   }
+
+  public Column(int i) {
+    super();
+    colNumber = i;
+  }
 }

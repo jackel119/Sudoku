@@ -1,9 +1,6 @@
 package Sudoku.Engine;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by jack on 3/28/17.
@@ -21,7 +18,7 @@ public abstract class CellGroup {
       this.cells.add(cells.get(i - 1));
       missingValues.add(i);
     }
-    updateMissing();
+    update();
   }
 
   public CellGroup() {
@@ -29,19 +26,40 @@ public abstract class CellGroup {
     for (int i=1; i <=9; i++) {
       missingValues.add(i);
     }
-    updateMissing();
+    update();
   }
 
-  private void updateMissing() {
+  public void update() {
     for (Cell c : cells) {
       if (c.hasBeenSet()) {
-        missingValues.remove(c.getValue());
+        try {
+          missingValues.remove(c.getValue());
+          removeCellPossibilities(c.getValue());
+        } catch (NoSuchElementException e) {
+
+        }
       }
     }
     //try doing functionally
   }
 
-  private void removeMissing(int i) {
+  public void removeCellPossibilities(int i) {
+    for (Cell c : cells) {
+      c.removePossibility(i);
+    }
+  }
+
+
+  public void addCell(Cell cell) {
+    if (cells.size() > 9) {
+      throw new RuntimeException("Too many cells in a group");
+    } else {
+      cells.add(cell);
+    }
+  }
+
+
+  public void removeMissing(int i) {
     missingValues.remove(i);
   }
 
