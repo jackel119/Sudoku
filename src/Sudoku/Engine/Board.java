@@ -39,14 +39,26 @@ public class Board {
           boardArray[row][column] = new Cell(intArray[(row * 9) + column], row, column);
         }
       }
-      System.out.println("test");
       initializeGroups();
+      System.out.println("test");
     }
     // Initializes the groups and adds the cells to them
   }
 
   private Cell get(int r, int c) {
     return boardArray[r][c];
+  }
+
+  public ArrayList<Column> getColumns() {
+    return columns;
+  }
+
+  public ArrayList<Row> getRows() {
+    return rows;
+  }
+
+  public ArrayList<Square3x3> getParentSquares() {
+    return parentSquares;
   }
 
   public boolean updateValue(int r, int c, int newValue) {
@@ -77,10 +89,8 @@ public class Board {
         columns.get(i).addCell(boardArray[j][i]);
         boardArray[j][i].setColumn(columns.get(i));
 
-        // parentSquares.get(i).addCell(boardArray[(i % 3) + (j % 3)][(i / 3) + (j / 3)]);
-       //  boardArray[3 * (i % 3) + (j % 3)][3 * (i / 3) + (j / 3)].setParentSquare(parentSquares.get(i));
-        boardArray[i][j].setParentSquare(parentSquares.get((i % 3) + (3 * (j % 3))));
-        parentSquares.get((i % 3) + (3 * (j % 3))).addCell(boardArray[i][j]);
+        parentSquares.get( 3 * (i / 3) + (j / 3)).addCell(boardArray[i][j]);
+        boardArray[i][j].setParentSquare(parentSquares.get( 3 * (i / 3) + (j / 3) ));
       }
     }
 
@@ -92,8 +102,11 @@ public class Board {
     */
 
     for (int i=0; i<9; i++) {
+      // System.out.println("Updating Row" + i);
       rows.get(i).update();
+      // System.out.println("Updating Column" + i);
       columns.get(i).update();
+      // System.out.println("Updating Square" + i);
       parentSquares.get(i).update();
     }
 

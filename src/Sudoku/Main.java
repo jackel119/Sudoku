@@ -28,7 +28,7 @@ public class Main {
     }
 
     Game.getGame().newGame(testcase1);
-    //Game.getGame().gameLoop();
+    Game.getGame().gameSolver();
 
   }
 

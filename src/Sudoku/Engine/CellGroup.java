@@ -18,7 +18,7 @@ public abstract class CellGroup {
       this.cells.add(cells.get(i - 1));
       missingValues.add(i);
     }
-    update();
+    // update();
   }
 
   public CellGroup() {
@@ -26,11 +26,12 @@ public abstract class CellGroup {
     for (int i=1; i <=9; i++) {
       missingValues.add(i);
     }
-    update();
+    // update();
   }
 
   public void update() {
     for (Cell c : cells) {
+      // System.out.println("Current cell row, column =" + c.getRow() + " " + c.getColumn());
       if (c.hasBeenSet()) {
         try {
           missingValues.remove(c.getValue());
@@ -45,7 +46,7 @@ public abstract class CellGroup {
 
   public void removeCellPossibilities(int i) {
     for (Cell c : cells) {
-      c.removePossibility(i);
+        c.removePossibility(i);
     }
   }
 

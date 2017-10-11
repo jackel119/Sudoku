@@ -96,12 +96,14 @@ public class Cell {
   }
 
   public synchronized void removePossibility(int i) {
-    if (possibleValues.contains(i)){
-      possibleValues.remove(i);
-    }
-    if (possibleValues.size() == 1) {
-      for (int j : possibleValues) {
-        set(j);
+    if (!hasBeenSet()) {
+      if (possibleValues.contains(i)) {
+        possibleValues.remove(i);
+      }
+      if (possibleValues.size() == 1) {
+        for (int j : possibleValues) {
+          set(j);
+        }
       }
     }
   }

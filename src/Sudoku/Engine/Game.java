@@ -1,6 +1,7 @@
 package Sudoku.Engine;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -15,6 +16,7 @@ public class Game {
 
     public  void newGame(int[] intArray) {
         board = new Board(intArray);
+        System.out.println("Break");
         for (int i=0; i<81; i++) {
             if (intArray[i] != 0 ) {
                 cellsLeft += 1;
@@ -37,6 +39,21 @@ public class Game {
             command = reader.nextLine();
             s = command.split("\\s+");
             makeMove(Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]));
+        }
+    }
+
+    public void gameSolver() {
+        System.out.println("Solving begins!");
+        ArrayList<Row> rows = board.getRows();
+        ArrayList<Column> columns = board.getColumns();
+        ArrayList<Square3x3> parentsquares = board.getParentSquares();
+        for (int r=0; r<10 && getGame().isGameRunning; r++) {
+            for (int i=0;i<9;i++) {
+                rows.get(i).update();
+                columns.get(i).update();
+                parentsquares.get(i).update();
+            }
+            board.display();
         }
     }
 
