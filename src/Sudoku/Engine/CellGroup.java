@@ -43,6 +43,9 @@ public abstract class CellGroup {
     }
     //try doing functionally
   }
+  public boolean isMissing(int i) {
+    return missingValues.contains(i);
+  }
 
   public void removeCellPossibilities(int i) {
     for (Cell c : cells) {

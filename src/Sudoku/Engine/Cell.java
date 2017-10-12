@@ -81,7 +81,7 @@ public class Cell {
     if (!settable) {
       throw new IllegalArgumentException("This square is not settable");
     }
-    if (possibleValues.contains(v)) {
+    if (possibleValues.contains(v) && checkGroupLegality(v)) {
       this.value = Optional.of(new Integer(v));
       row.removeMissing(v);
       column.removeMissing(v);
@@ -91,8 +91,13 @@ public class Cell {
     } else if (v < 0 || v > 9 ){
       throw new IllegalArgumentException("Value must be between 1 and 9");
     } else {
-      throw new IllegalArgumentException("Invalid move");
+      throw new IllegalArgumentException("Invalid move. Cannot set cell at row, column: "
+              + rowNo + columnNo + " to be " + v);
     }
+  }
+
+  private boolean checkGroupLegality(int i) {
+    return row.isMissing(i) && column.isMissing(i) && parentSquare.isMissing(i);
   }
 
   public synchronized void removePossibility(int i) {
