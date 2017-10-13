@@ -4,6 +4,6 @@ A human-like Sudoku solver, i.e. instead of using well-known algorithmic solving
 
 Currently, a few things that needs work on:
 
-1. *A parser for a sudoku file formats.* There are many sudoku file formats out there but I can't seem to find a large bulk download for them for testing, hence I haven't started a parser.
-2. *Implementation of trial and error guesses when further progress by elimination is no longer possible*. I haven't decided how to do this yet, but checking the condition that no progress has been made since the last iteration should be trivial
+1. **A parser for a sudoku file formats.** There are many sudoku file formats out there but I can't seem to find a large bulk download for them for testing, hence I haven't started a parser.
+2. **Implementation of trial and error guesses when further progress by elimination is no longer possible**. I haven't decided how to do this yet, but checking the condition that no progress has been made since the last iteration should be trivial
 3. Fix the bug affecting how many cells left are counted.
