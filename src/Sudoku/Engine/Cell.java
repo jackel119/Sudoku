@@ -86,6 +86,7 @@ public class Cell {
       row.removeMissing(v);
       column.removeMissing(v);
       parentSquare.removeMissing(v);
+      Game.getGame().decCellsLeft();
     } else if (v == 0) {
       this.value = Optional.empty();
     } else if (v < 0 || v > 9 ){

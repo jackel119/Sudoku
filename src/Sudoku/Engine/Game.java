@@ -12,16 +12,17 @@ public class Game {
 
     private Game(){};
 
-    private Game(int[][] intArray){};
 
     public  void newGame(int[] intArray) {
-        board = new Board(intArray);
-        System.out.println("Break");
         for (int i=0; i<81; i++) {
-            if (intArray[i] != 0 ) {
+            if (intArray[i] == 0 ) {
                 cellsLeft += 1;
             }
         }
+        board = new Board(intArray);
+        System.out.println("Break");
+
+        System.out.println("New Game started! Cells left = " + cellsLeft);
         board.display();
     }
 
@@ -33,6 +34,7 @@ public class Game {
         Scanner reader = new Scanner(System.in);
         String command;
         String[] s = new String[3];
+        System.out.println(cellsLeft);
         while (isGameRunning) {
             board.display();
             System.out.println("Please enter your next move in the format: ROW COLUMN VALUE");
@@ -47,12 +49,13 @@ public class Game {
         ArrayList<Row> rows = board.getRows();
         ArrayList<Column> columns = board.getColumns();
         ArrayList<Square3x3> parentsquares = board.getParentSquares();
-        for (int r=0; r<10 && getGame().isGameRunning; r++) {
+        for (int r=0; r<100 && cellsLeft > 0; r++) {
             for (int i=0;i<9;i++) {
                 rows.get(i).update();
                 columns.get(i).update();
                 parentsquares.get(i).update();
             }
+            System.out.println("iteration round " + r + "\nCells left = " + cellsLeft);
             board.display();
         }
     }
@@ -64,5 +67,9 @@ public class Game {
                 isGameRunning = false;
             }
         }
+    }
+
+    protected void decCellsLeft() {
+        cellsLeft -= 1;
     }
 }
