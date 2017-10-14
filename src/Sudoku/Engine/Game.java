@@ -1,8 +1,6 @@
 package Sudoku.Engine;
 
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,6 +49,7 @@ public class Game {
         ArrayList<Row> rows = board.getRows();
         ArrayList<Column> columns = board.getColumns();
         ArrayList<Square3x3> parentsquares = board.getParentSquares();
+        final long startTime = System.currentTimeMillis();
         int oldCellsLeft =0;
         for (int r=0; r<100 && cellsLeft > 0; r++) {
             System.out.println("iteration round " + r + "\nCells left = " + cellsLeft);
@@ -69,6 +68,8 @@ public class Game {
                 break;
             }
         }
+        final long endTime = System.currentTimeMillis();
+        System.out.println("Execution time: " + (endTime - startTime) + " ms");
     }
 
     private void makeMove(int row, int column, int value) {
