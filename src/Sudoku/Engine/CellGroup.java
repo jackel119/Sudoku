@@ -28,9 +28,7 @@ public abstract class CellGroup {
     }
     // update();
   }
-
-  public void update() {
-    for (Cell c : cells) {
+public void update() { for (Cell c : cells) {
       // System.out.println("Current cell row, column =" + c.getRow() + " " + c.getColumn());
       if (c.hasBeenSet()) {
         try {
@@ -53,6 +51,9 @@ public abstract class CellGroup {
     }
   }
 
+  public Set<Integer> getMissingValues() {
+    return missingValues;
+  }
 
   public void addCell(Cell cell) {
     if (cells.size() > 9) {
@@ -81,6 +82,31 @@ public abstract class CellGroup {
       System.out.print(s + " ");
     }
     System.out.println();
+  }
+
+  public void eliminate() {
+    HashMap<Integer, Cell> toSet = new HashMap<>();
+
+    for (Integer i : missingValues) {
+      int count = 0;
+      for (Cell c : cells) {
+        if (c.couldBe(i)) {
+          count++;
+        }
+      }
+      if (count == 1) {
+        for (Cell c: cells) {
+          if (c.couldBe(i)) {
+            toSet.put(i, c);
+          }
+        }
+      }
+    }
+
+    for (Integer i : toSet.keySet()) {
+      toSet.get(i).set(i);
+      // System.out.println("Setting cell at row, column: " + toSet.get(i).getRow() + " " + toSet.get(i).getColumn() + " to value " + i + " by elimination");
+    }
   }
 
 }

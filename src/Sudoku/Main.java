@@ -41,11 +41,12 @@ public class Main {
       emptyOne[i] = (i % 9);
     }
 
-    Game.getGame().newGame(testcase1);
-    Game.getGame().gameSolver();
+    // Game.getGame().newGame(testcase1);
+    // Game.getGame().gameSolver();
     Game.getGame().newGame(testcase2);
+    final long startTime = System.currentTimeMillis();
     Game.getGame().gameSolver();
-
+    System.out.println("Execution time: " + (System.currentTimeMillis() - startTime));
   }
 
 }

@@ -45,7 +45,7 @@ public class Board {
     // Initializes the groups and adds the cells to them
   }
 
-  private Cell get(int r, int c) {
+  public Cell get(int r, int c) {
     return boardArray[r][c];
   }
 

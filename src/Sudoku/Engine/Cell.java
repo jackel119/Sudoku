@@ -77,6 +77,10 @@ public class Cell {
     return value.isPresent();
   }
 
+  public Set<Integer> getPossibleValues() {
+    return possibleValues;
+  }
+
   public synchronized void set(int v) {
     if (!settable) {
       throw new IllegalArgumentException("This square is not settable");
@@ -86,6 +90,8 @@ public class Cell {
       row.removeMissing(v);
       column.removeMissing(v);
       parentSquare.removeMissing(v);
+      settable=false;
+      possibleValues.clear();
       Game.getGame().decCellsLeft();
     } else if (v == 0) {
       this.value = Optional.empty();
@@ -112,6 +118,10 @@ public class Cell {
         }
       }
     }
+  }
+
+  public synchronized boolean couldBe(int i) {
+    return possibleValues.contains(i);
   }
 
 }

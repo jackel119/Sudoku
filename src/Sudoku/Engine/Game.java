@@ -1,6 +1,8 @@
 package Sudoku.Engine;
 
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,14 +51,23 @@ public class Game {
         ArrayList<Row> rows = board.getRows();
         ArrayList<Column> columns = board.getColumns();
         ArrayList<Square3x3> parentsquares = board.getParentSquares();
+        int oldCellsLeft =0;
         for (int r=0; r<100 && cellsLeft > 0; r++) {
+            System.out.println("iteration round " + r + "\nCells left = " + cellsLeft);
+            oldCellsLeft = cellsLeft;
             for (int i=0;i<9;i++) {
                 rows.get(i).update();
                 columns.get(i).update();
                 parentsquares.get(i).update();
+                rows.get(i).eliminate();
+                columns.get(i).eliminate();
+                parentsquares.get(i).eliminate();
             }
-            System.out.println("iteration round " + r + "\nCells left = " + cellsLeft);
             board.display();
+            if (cellsLeft == oldCellsLeft) {
+                System.out.println("No further progress can be made, exiting");
+                break;
+            }
         }
     }
 
