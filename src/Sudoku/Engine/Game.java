@@ -3,6 +3,8 @@ package Sudoku.Engine;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+;import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public class Game {
     private static final Game instance = new Game();
@@ -51,6 +53,7 @@ public class Game {
         ArrayList<Square3x3> parentsquares = board.getParentSquares();
         final long startTime = System.currentTimeMillis();
         int oldCellsLeft =0;
+        ExecutorService eliminationpool = newFixedThreadPool(27);
         for (int r=0; r<100 && cellsLeft > 0; r++) {
             System.out.println("iteration round " + r + "\nCells left = " + cellsLeft);
             oldCellsLeft = cellsLeft;
@@ -58,9 +61,11 @@ public class Game {
                 rows.get(i).update();
                 columns.get(i).update();
                 parentsquares.get(i).update();
-                rows.get(i).eliminate();
-                columns.get(i).eliminate();
-                parentsquares.get(i).eliminate();
+            }
+            for (int i=0;i<9;i++) {
+                eliminationpool.submit(new ElimThread(rows.get(i)));
+                eliminationpool.submit(new ElimThread(columns.get(i)));
+                eliminationpool.submit(new ElimThread(parentsquares.get(i)));
             }
             board.display();
             if (cellsLeft == oldCellsLeft) {
@@ -68,6 +73,7 @@ public class Game {
                 break;
             }
         }
+        eliminationpool.shutdown();
         final long endTime = System.currentTimeMillis();
         System.out.println("Execution time: " + (endTime - startTime) + " ms");
     }
